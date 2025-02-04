@@ -5,9 +5,7 @@ CREATE TABLE user(
     user_id BIGINT AUTO_INCREMENT,
     auth_level CHAR(1) ,
 
-    -- MySQL 8.0.16 버젼부터 CHECK 제약 조건을 통해 도메인 무결성을 유지할 수 있으므로 CHECK 제약조건을 사용 했습니다.
     CONSTRAINT chk_auth_level CHECK(auth_level IN('0','1','2','3')),
-
     PRIMARY KEY(user_id),
 
 );
@@ -31,14 +29,13 @@ CREATE TABLE approval(
     approval_step CHAR(1) DEFAULT '1',
     approval_at DATETIME,
     approval_status CHAR(1) DEFAULT '0',
-    approver_id BIGINT DEFAULT NULL,
+    approver_id BIGINT DEFAULT NULL, 
 
     CONSTRAINT chk_approval_step CHECK (approval_step IN ('1', '2', '3')),
     CONSTRAINT chk_approval_status CHECK (approval_status IN ('0', '1', '2')),
     FOREIGN KEY (document_id) REFERENCES document(document_id) ON DELETE CASCADE,
     FOREIGN KEY (approver_id) REFERENCES user(user_id) ON DELETE CASCADE,
 
-    -- 특정 사용자가 처리해야 할 결재 건을 나타내는 쿼리에서 "Using filesort", "Full Table Scan"이 발생해 복합 인덱스를 설정 했습니다. 
     INDEX idx_approval_step_status_at(approval_step,approval_status,approval_at),
  
     PRIMARY KEY(approval_id)
@@ -47,9 +44,8 @@ CREATE TABLE approval(
 
 -- 2,특정 사용자가 처리해야 할 결재 건을 나열하는 query
 
-SELECT
+ SELECT
     appr.approval_at,
-    doc.created_at AS document_createdAt,
     doc.document_id AS document_id,
     doc.title AS document_title,
     appr.approval_step,
