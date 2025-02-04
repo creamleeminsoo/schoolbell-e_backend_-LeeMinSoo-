@@ -204,9 +204,9 @@
 
 또한 'Using filesort'를 해결하기위해 인덱스를 이용한 정렬을 활용하기로 결정하였고
 
-`결재 단계(approval_step), 결재 상태(approval_status), 결재 요청 일자(approval_at) 3개의 컬럼으로 조합한 복합 인덱스를 설계 한뒤
+`결재 단계(approval_step)`, `결재 상태(approval_status)`, `결재 요청 일자(approval_at)` **3개의 컬럼으로 조합한 복합 인덱스를 설계 한뒤**
 
-실행 계획을 확인하니 원하던 대로 **인덱스를 통해 검색하고**, **인덱스를 통해 정렬** 하였습니다.
+실행 계획을 확인하니 의도 한 대로 **인덱스를 통해 검색하고**, **인덱스를 통해 정렬** 하였습니다.
 
 ![복합 인덱스로 최적화](https://github.com/user-attachments/assets/6c8a4970-6e84-433c-8007-a2b1dcf24d06)
 
