@@ -186,7 +186,7 @@
 4. 문서 작성일자를 기준으로 오름차순 정렬했습니다.
 
     ```sql
-    ORDER BY appr.approval_at ASC;
+    ORDER BY doc.created_at
     ```
 
 
